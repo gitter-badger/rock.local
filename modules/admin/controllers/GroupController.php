@@ -122,6 +122,16 @@ class GroupController extends Controller
         /* По номеру получаем объект группы*/
         $model = $this->findModel($id);
 
+        if(!empty(UploadedFile::getInstance($model, 'logo'))){
+
+            /* Разбиваем путь по слешу */
+            /* Удаляем 0 значение масива */
+            /* Удаляем логотип */
+            $path = explode('/' , $model->logo);
+            unset($path[0]);
+            unlink(implode('/' , $path));
+        }
+
         /* Если загрузка из поста в модель прошла успешно, то..*/
         if ($model->load(Yii::$app->request->post())) {
 
@@ -175,14 +185,17 @@ class GroupController extends Controller
         /* Если свойство logo не пусто, то... */
         if (!empty($model->logo)){
 
+            /* Разбиваем путь по слешу */
+            /* Удаляем 0 значение масива */
             /* Удаляем логотип */
-            unlink($model->logo);
+            $path = explode('/' , $model->logo);
+            unset($path[0]);
+            unlink(implode('/' , $path));
         }
 
         /* Удаляем и саму модель */
-        $model->delete();
-
         /*Ридеректим на экшен index*/
+        $model->delete();
         return $this->redirect(['index']);
     }
 

@@ -61,7 +61,8 @@ class ArtistSearch extends Artist
         ]);
 
         $query->andFilterWhere(['like', 'full_name', $this->full_name])
-            ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'logo', $this->logo]);
 
         return $dataProvider;
     }
