@@ -58,6 +58,7 @@ $config = [
                         'app_artist' => 'artist.php',
                         'app_group' => 'group.php',
                         'app_admin_group' => 'admin_group.php',
+                        'app_admin_artist' => 'admin_artist.php',
                         'app/error' => 'error.php',
                     ],
                 ],
