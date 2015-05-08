@@ -8,7 +8,7 @@
  * @var $data object
  */
 
-use yii\bootstrap\BootstrapAsset;
+use yii\helpers\Html;
 
 ?>
 
@@ -22,7 +22,7 @@ use yii\bootstrap\BootstrapAsset;
 
                 <div class="thumbnail">
 
-                    <img src="<?= '../' . $item['logo'] ?>" alt="<?= $item['title'] ?>" class="thumbnail groups-logo">
+                    <?=Html::img($item['logo'] , ['class' => 'thumbnail groups-logo']); ?>
 
                     <div class="caption">
                         <h3><a href="/group/<?= $item['id'] ?>"><?= $item['title'] ?></h3>
