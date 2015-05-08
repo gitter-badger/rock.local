@@ -5,5 +5,6 @@ return[
     'Full name' => 'Полное имя',
     'Description' => 'Описание',
     'Group ID' => 'Группа',
-    'Logo' => 'Фото'
+    'Logo' => 'Фото',
+    'Artists' => 'Артисты',
 ];

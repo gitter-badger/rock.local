@@ -99,3 +99,9 @@ a.desc:after {
 .admin-groups-logo{
     width: 150px;
 }
+
+/* ARTIST/VIEW */
+.artist-detail-logo{
+    width: 200px;
+    margin: 0 auto;
+}

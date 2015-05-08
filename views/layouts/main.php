@@ -22,7 +22,8 @@ AppAsset::register($this);
 </head>
 <body>
 
-<?php $this->beginBody() ?>
+    <?php $this->beginBody() ?>
+
     <div class="wrap">
         <?php
             NavBar::begin([

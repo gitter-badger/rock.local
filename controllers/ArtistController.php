@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 /**
- * ArtistController implements the CRUD actions for Artist model.
+ * ArtistController Контроллер для реализации каталога артистов и солистов, использует модель Artist
  */
 class ArtistController extends Controller
 {
@@ -28,22 +28,20 @@ class ArtistController extends Controller
     }
 
     /**
-     * Lists all Artist models.
+     * Отображение всех артистов
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ArtistSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = Artist::find()->asArray()->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 
     /**
-     * Displays a single Artist model.
+     * Отображение 1 артиста
      * @param integer $id
      * @return mixed
      */
@@ -83,7 +81,7 @@ class ArtistController extends Controller
                     $model->file->saveAs('images/artist/logo/' . $file_name . '.' . $model->file->extension);
 
                     /* Всвойсво объекта ложим информацию о расположении файла логотипа данного объекта, для дальнейшей записи в базу данных */
-                    $model->logo = 'images/artist/logo/' . $file_name . '.' . $model->file->extension;
+                    $model->logo = '@web/images/artist/logo/' . $file_name . '.' . $model->file->extension;
 
                     /* Сохраняем объект в базу */
                     $model->save();
@@ -130,7 +128,7 @@ class ArtistController extends Controller
                     $model->file->saveAs('images/artist/logo/' . $file_name . '.' . $model->file->extension);
 
                     /* Всвойсво объекта ложим информацию о расположении файла логотипа данного объекта, для дальнейшей записи в базу данных */
-                    $model->logo = 'images/artist/logo/' . $file_name . '.' . $model->file->extension;
+                    $model->logo = '@web/images/artist/logo/' . $file_name . '.' . $model->file->extension;
 
                     /* Сохраняем объект в базу */
                     $model->save();
