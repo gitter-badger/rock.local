@@ -6,6 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ArtistSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model app\models\Artist */
 
 $this->title = Yii::t('app_admin_artist', 'Artists');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app_admin_artist', 'Admin'), 'url' => ['/admin/index']];
@@ -13,11 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="artist-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p><?= Html::a(Yii::t('app_admin_artist', 'Create Artist'), ['create'], ['class' => 'btn btn-success pull-right']) ?></p>
 
-    <p>
-        <?= Html::a(Yii::t('app_admin_artist', 'Create Artist'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -35,7 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'full_name',
-            'description:ntext',
+            [
+                'attribute' => 'description',
+                'format' => 'html',
+                'value'=>function($model)
+                {
+                    return substr($model->description , 0 , 1200);
+                }
+            ],
             'group_id',
 
             ['class' => 'yii\grid\ActionColumn'],

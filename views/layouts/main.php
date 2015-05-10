@@ -35,17 +35,23 @@ AppAsset::register($this);
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
+                'encodeLabels' => false,
                 'items' => [
                     ['label' => 'Главная', 'url' => ['/site/index']],
                     ['label' => 'Артисты', 'url' => ['/artist/index']],
                     ['label' => 'Группы', 'url' => ['/group/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
+                    ['label' => 'О сервисе', 'url' => ['/site/about']],
+                    ['label' => 'Связь', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
+                        ['label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->username,
+                            'items' => [
+                                ['label' => 'Выход', 'url' => '/site/logout'],
+                                '<li class="divider"></li>',
+                                '<li class="dropdown-header">Админка</li>',
+                                ['label' => 'Вход в админку', 'url' => '/admin/default/index'],
+                            ],
+                        ],
                 ],
             ]);
             NavBar::end();
