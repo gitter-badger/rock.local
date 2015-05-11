@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Group;
 use Yii;
 use app\models\Artist;
 use app\models\ArtistSearch;
@@ -64,6 +65,13 @@ class ArtistController extends Controller
         /* Создаём новую модель артиста */
         $model = new Artist();
 
+        /* Массив с группами */
+        $groups_data = Group::find()->select('id , title')->asArray()->all();
+        foreach($groups_data as $value)
+        {
+            $groups[$value['id']] = $value['title'];
+        }
+
         /* Если модель удачно заполнилась данными из массива POST , то */
         if ($model->load(Yii::$app->request->post())) {
 
@@ -91,13 +99,18 @@ class ArtistController extends Controller
             }
 
             /* Перенаправляем пользователя на страницу созданного объекта */
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view',
+                'id' => $model->id,
+            ]);
 
             /* Если же модель не заполнилась данными, то их там просто нет, значит */
         } else {
 
             /* Отображаем страницу создания артиста */
-            return $this->render('create', ['model' => $model,]);
+            return $this->render('create', [
+                'model' => $model,
+                'groups' => $groups,
+            ]);
 
         }
     }
@@ -112,8 +125,14 @@ class ArtistController extends Controller
     {
         $model = $this->findModel($id);
 
-        if(!empty(UploadedFile::getInstance($model, 'logo'))){
+        /* Массив с группами */
+        $groups_data = Group::find()->select('id , title')->asArray()->all();
+        foreach($groups_data as $value)
+        {
+            $groups[$value['id']] = $value['title'];
+        }
 
+        if(!empty(UploadedFile::getInstance($model, 'logo'))){
             /* Разбиваем путь по слешу */
             /* Удаляем 0 значение масива */
             /* Удаляем логотип */
@@ -133,6 +152,14 @@ class ArtistController extends Controller
                 /* Если данные успешно перенеслись в свойство объекта, то */
                 if (!empty($model->file)) {
 
+                    echo '<br>';
+                    echo '<br>';
+                    echo '<br>';
+                    echo '<br>';
+                    echo '<br>';
+                    echo '<br>';
+                    echo '<br>';
+                    echo '<br> меня тут нет';
                     /* Генерируем имя файла для логотипа */
                     $file_name = substr(md5(uniqid()), 0, 7);
 
@@ -151,6 +178,7 @@ class ArtistController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'groups' => $groups,
             ]);
         }
     }
